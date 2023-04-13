@@ -14,7 +14,7 @@ export class OfferController {
     }
 
     @Post('offer1')
-    @HttpCode(HttpStatus.NO_CONTENT)
+    @HttpCode(HttpStatus.CREATED)
     async handleOffer1(@Body() offer1PayloadDto: Offer1PayloadDTO): Promise<void> {
         const providerName = 'offer1';
         const offers = await this.offerService.transformAndValidateOffers(offer1PayloadDto.response.offers, providerName);

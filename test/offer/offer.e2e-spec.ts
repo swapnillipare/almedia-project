@@ -2,7 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { OfferModule } from '../../src/modules/offer/offer.module';
-import { offer1 } from 'test/payload/payload.offer1';
+import { offer1 } from '../../test/payload/payload.offer1';
+import { offer2 } from '../../test/payload/payload.offer2';
 
 describe('OfferController (e2e)', () => {
   let app: INestApplication;
@@ -26,11 +27,15 @@ describe('OfferController (e2e)', () => {
 
   it('POST Offer1 Payload ', () => {
     return request(app.getHttpServer())
-    .post('/offers')
+    .post('/offers/offer1')
     .send(offer1)
     .expect(201)
-    .expect((res) => {
-      expect(res.body).toMatchObject(payload);
-    });
+  });
+
+  it('POST Offer2 Payload ', () => {
+    return request(app.getHttpServer())
+    .post('/offers/offer2')
+    .send(offer2)
+    .expect(204)
   });
 });
