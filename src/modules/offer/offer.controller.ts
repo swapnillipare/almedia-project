@@ -15,19 +15,18 @@ export class OfferController {
 
     @Post('offer1')
     @HttpCode(HttpStatus.NO_CONTENT)
-    async handleOffer1(@Body() offer1PayloadDto: Offer1PayloadDTO): Promise<Offer[]> {
+    async handleOffer1(@Body() offer1PayloadDto: Offer1PayloadDTO): Promise<void> {
         const providerName = 'offer1';
         const offers = await this.offerService.transformAndValidateOffers(offer1PayloadDto.response.offers, providerName);
         console.log(`validated offer are ---- > ${offers.offers.length}`);
         // here now we user this offers object to validate and store into databse (repository)
-        return this.offerService.saveAll(offers)
+        //return this.offerService.saveAll(offers)
     }
 
     @Post('offer2')
     @HttpCode(HttpStatus.NO_CONTENT)
     async handleOffer2(@Body() offer2PayloadDto: Offer2PayloadDto): Promise<void> {
         const providerName = 'offer2';
-
         const offers = await this.offerService.transformAndValidateOffers(offer2PayloadDto, providerName);
         console.log(`validated offer are ---- > ${offers.offers.length}`);
     }
