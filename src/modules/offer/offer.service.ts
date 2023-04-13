@@ -7,16 +7,11 @@ import { OfferBoxSizeEnum } from './offer.boxsize.enum';
 import { ValidationError, validate } from 'class-validator';
 import { DataDTO, Offer2PayloadDto } from './offer2.payload.dto';
 import { Offer } from './offer.entity';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class OfferService {
 
-  constructor(
-    @InjectRepository(Offer)
-    private readonly offerRepository: Repository<Offer>,
-  ) { }
+
 
   // to get Offer details
   getOffer(): string {
@@ -130,7 +125,8 @@ export class OfferService {
     offer.externalOfferId = genericOfferDTO.externalOfferId;
     offer.icon = genericOfferDTO.icon;
 
-    return await this.offerRepository.save(offer);
+    //return await this.offerRepository.save(offer);
+    return offer;
   }
 
   async saveAll(offersDto: OffersDTO): Promise<Offer[]> {
@@ -140,8 +136,8 @@ export class OfferService {
 
     for (let i = 0; i < genericOfferDTO.length; i += batchSize) {
       const batch = genericOfferDTO.slice(i, i + batchSize);
-      const savedBatch = await this.offerRepository.save(batch.map((genericOffer) => plainToClass(Offer, genericOffer)));
-      savedOffers.push(...savedBatch);
+      //const savedBatch = await this.offerRepository.save(batch.map((genericOffer) => plainToClass(Offer, genericOffer)));
+      savedOffers.push(...batch.map((genericOffer) => plainToClass(Offer, genericOffer)));
     }
 
     return savedOffers;
