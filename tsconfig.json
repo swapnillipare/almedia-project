@@ -20,6 +20,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts" // add this line
+    "test/**/*.ts"
   ]
 }
